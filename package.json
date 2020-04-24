@@ -1,4 +1,5 @@
 {
+  "proxy": "http://localhost:9000",
   "name": "suspense",
   "version": "0.1.0",
   "private": true,
@@ -6,13 +7,23 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
+    "axios": "^0.19.2",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "netlify-lambda": "^1.6.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.1"
+    "react-query": "^1.2.9",
+    "react-scripts": "3.4.1",
+    "react-spinners": "^0.8.1",
+    "serverless-http": "^2.3.2",
+    "styled-components": "^5.1.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start:client": "react-scripts start",
     "build": "react-scripts build",
+    "start:server": "./node_modules/.bin/netlify-lambda serve express",
+    "start": "parallelshell 'npm run start:server' 'npm run start:client' ",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -30,5 +41,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "parallelshell": "^3.0.1"
   }
 }
