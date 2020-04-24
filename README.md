@@ -1,4 +1,5 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## ENV SETTINGS:
+Authorization = Bearer <[API_KEY](https://developer.clashroyale.com/)>
 
 ## Available Scripts
 
