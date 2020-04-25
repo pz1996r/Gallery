@@ -11,7 +11,7 @@ router.get('/clash', async (req, res) => {
         const headers = { 'Authorization': Authorization }
         const response = await axios.get('https://api.clashroyale.com/v1/cards', { headers: headers });
         let responsePackage;
-        let limit = response.data.items.length;
+        let limit = response.data.items.length - 1;
         if (amount && page) {
             responsePackage = { cards: response.data.items.splice(page, amount).map((record, i) => ({ ...record, id: (+ page + i + 1) })), amount: limit };
         } else {
