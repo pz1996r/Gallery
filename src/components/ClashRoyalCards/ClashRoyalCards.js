@@ -1,22 +1,14 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
-import styled, { css } from 'styled-components';
 
 import LoadingImg from './LoadingImg';
 import Stepper from './Stepper';
-import { stripe } from '../Common';
+import Label from './Label';
 
 const FetchStatus = {
     LOADED: "LOADED",
     LOADING: "LOADING"
 }
-
-const Label = styled.div`
-    ${stripe}
-    color:black;
-    justify-content:center;
-    align-items:center;
-`;
 
 const ClashRoyalCards = ({ children }) => {
     const [imageId, setImageId] = useState(0);
@@ -24,7 +16,7 @@ const ClashRoyalCards = ({ children }) => {
     const [cardName, setCardName] = useState(null);
     const [cardsAmount, setCardsAmount] = useState(1);
     const [status, setStatus] = useState(FetchStatus['LOADING']);
-    const [mode, setMode] = useState('SLOW');
+    // const [mode, setMode] = useState('SLOW');
 
     const FetchCards = async (id) => {
         const url = `/.netlify/functions/routes/clash?amount=1&page=${id}`;
