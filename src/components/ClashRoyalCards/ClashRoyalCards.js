@@ -10,7 +10,7 @@ const FetchStatus = {
     LOADING: "LOADING"
 }
 
-const ClashRoyalCards = ({ children }) => {
+const ClashRoyalCards = (props) => {
     const [imageId, setImageId] = useState(0);
     const [image, setImage] = useState(null);
     const [cardName, setCardName] = useState(null);
@@ -45,13 +45,34 @@ const ClashRoyalCards = ({ children }) => {
             .catch((error) => { console.log(error) });
     }, [imageId, fillCard])
 
+    const mapPropsToCardsStepper = (child) => {
+        console.log(child.type.name);
+        switch (child.type.name) {
+            case 'Label': return React.cloneElement(child, {
+                value: cardName,
+                visible: status === FetchStatus['LOADED']
+            })
+            case 'LoadingImg': return React.cloneElement(child, {
+                src: image,
+                loading: status !== FetchStatus['LOADED'],
+                callBack: () => { setStatus(FetchStatus['LOADED']) }
+            })
+            case 'Stepper': return React.cloneElement(child, {
+                max: cardsAmount,
+                current: imageId,
+                handleStep: changeCard
+            })
+            default: return React.cloneElement(child, {})
+        }
+    }
+
+    const children = React.Children.map(props.children, mapPropsToCardsStepper);
+
     return (
-        <div>
-            <Label>{status === FetchStatus['LOADED'] && cardName}</Label>
-            <LoadingImg src={image} loading={status !== FetchStatus['LOADED']} callBack={() => { setStatus(FetchStatus['LOADED']) }} />
-            <Stepper max={cardsAmount} current={imageId} handleStep={changeCard} />
-        </div>
+        <div>{children}</div>
     )
 }
-
+ClashRoyalCards.Label = Label;
+ClashRoyalCards.LoadingImg = LoadingImg;
+ClashRoyalCards.Stepper = Stepper;
 export default ClashRoyalCards;
