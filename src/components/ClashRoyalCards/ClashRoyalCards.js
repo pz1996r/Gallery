@@ -25,6 +25,7 @@ const ClashRoyalCards = (props) => {
     }
 
     const fillCard = useCallback(async (response) => {
+        console.log(response);
         const card = response.data.response.cards[0];
         const amount = response.data.response.amount;
         setImage(card['iconUrls']['medium']);

@@ -21,8 +21,9 @@ router.get('/clash', async (req, res) => {
             'response': responsePackage
         })
     } catch (error) {
-        return res.json({
-            'error': 'Failed to connect with clashRoyal serwer, try again later.'
+        return res.status(404).json({
+            'error': 'Failed to connect with clashRoyal serwer, try again later.',
+            'info': error
         })
     }
 })
