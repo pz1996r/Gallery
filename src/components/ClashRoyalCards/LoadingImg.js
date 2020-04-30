@@ -1,6 +1,6 @@
 import React from 'react';
 import FadeLoader from "react-spinners/FadeLoader";
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 const ImageLoaderWrapper = styled.div`
     background:#ffffff14;

@@ -16,6 +16,7 @@ const ClashRoyalCards = (props) => {
     const [cardName, setCardName] = useState(null);
     const [cardsAmount, setCardsAmount] = useState(1);
     const [status, setStatus] = useState(FetchStatus['LOADING']);
+    const [error, setError] = useState(false);
     // const [mode, setMode] = useState('SLOW');
 
     const FetchCards = async (id) => {
@@ -25,7 +26,6 @@ const ClashRoyalCards = (props) => {
     }
 
     const fillCard = useCallback(async (response) => {
-        console.log(response);
         const card = response.data.response.cards[0];
         const amount = response.data.response.amount;
         setImage(card['iconUrls']['medium']);
@@ -43,7 +43,7 @@ const ClashRoyalCards = (props) => {
     useEffect(() => {
         FetchCards(imageId)
             .then(fillCard)
-            .catch((error) => { console.log(error) });
+            .catch(() => { setError(true) });
     }, [imageId, fillCard])
 
     const mapPropsToCardsStepper = (child) => {
@@ -56,7 +56,8 @@ const ClashRoyalCards = (props) => {
             case 'LoadingImg': return React.cloneElement(child, {
                 src: image,
                 loading: status !== FetchStatus['LOADED'],
-                callBack: () => { setStatus(FetchStatus['LOADED']) }
+                callBack: () => { setStatus(FetchStatus['LOADED']) },
+                error,
             })
             case 'Stepper': return React.cloneElement(child, {
                 max: cardsAmount,
