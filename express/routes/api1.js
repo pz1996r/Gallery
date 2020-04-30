@@ -10,7 +10,8 @@ router.get('/api1', async (req, res) => {
     console.log('env', Authorization);
     console.log()
     res.json({
-        'hello': 'api',
+        'hello': 'apii',
+        'test': 'test',
         'ip': serverIp
     })
 })
